@@ -54,8 +54,8 @@ def ikev_users():
     res = stream.read()
     arr = res.split(",")[1:]
     data = {
-        'Total Users':  arr[0][arr[0].find("/")-1],
-        'Online Users': arr[1].strip()[:1]
+        'total':  int(arr[0][arr[0].find("/")-1]),
+        'online': int(arr[1].strip()[:1])
     }
     return jsonify(data)
 
