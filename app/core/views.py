@@ -20,8 +20,16 @@ def before_request_func():
 def system_information():
     virtual_memory = psutil.virtual_memory()
     net_io = psutil.net_io_counters()
+    uptime_hours = 0
+    with open("/proc/uptime", "r") as f:
+        uptime = f.read().split(" ")[0].strip()
+        uptime = int(float(uptime))
+        uptime_hours = uptime // 3600
 
     data = {
+        'os': {
+            'uptime': uptime_hours
+        },
         'memory': {
             'total': bytes_to_GB(virtual_memory.total),
             'available': bytes_to_GB(virtual_memory.available),
