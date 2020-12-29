@@ -60,7 +60,9 @@ def ikev_users():
         }
         return jsonify(data)
     except:
-        return "error"
+        stream = os.popen('strongswan leases | head -n 1')
+        res = stream.read()
+        return res
 
 
 def bytes_to_GB(bytes):
