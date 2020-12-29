@@ -32,8 +32,8 @@ def system_information():
             'usage': psutil.cpu_percent()
         },
         'network': {
-            'sent': bytes_to_GB(net_io.bytes_sent)),
-            'received': bytes_to_GB(net_io.bytes_recv))
+            'sent': bytes_to_GB(net_io.bytes_sent),
+            'received': bytes_to_GB(net_io.bytes_recv)
         }
         
     }
