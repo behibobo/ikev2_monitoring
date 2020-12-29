@@ -51,7 +51,7 @@ def system_information():
 # @require_appkey
 def ikev_users():
     try:
-        stream = os.popen('strongswan leases | head -n 1')
+        stream = os.popen('/usr/sbin/strongswan leases | head -n 1')
         res = stream.read()
         arr = res.split(",")[1:]
         data = {
@@ -60,7 +60,7 @@ def ikev_users():
         }
         return jsonify(data)
     except:
-        stream = os.popen('strongswan leases | head -n 1')
+        stream = os.popen('/usr/sbin/strongswan leases | head -n 1')
         res = stream.read()
         return res
 
