@@ -19,12 +19,23 @@ def before_request_func():
 # @require_appkey
 def system_information():
     virtual_memory = psutil.virtual_memory()
+    net_io = psutil.net_io_counters()
+
     data = {
-        'Total Memory present': bytes_to_GB(virtual_memory.total),
-        'Total Memory Available': bytes_to_GB(virtual_memory.available),
-        'Total Memory Used': bytes_to_GB(virtual_memory.used),
-        'Memory Percentage Used': bytes_to_GB(virtual_memory.used),
-        'Total CPU Usage': "{}%".format(psutil.cpu_percent())
+        'memory': {
+            'total': bytes_to_GB(virtual_memory.total),
+            'available': bytes_to_GB(virtual_memory.available),
+            'used': bytes_to_GB(virtual_memory.used),
+            'percentage': psutil.cpu_percent(),
+        },
+        'cpu': {
+            'usage': psutil.cpu_percent()
+        },
+        'network': {
+            'sent': bytes_to_GB(net_io.bytes_sent)),
+            'received': bytes_to_GB(net_io.bytes_recv))
+        }
+        
     }
     return jsonify(data)
 
@@ -44,4 +55,4 @@ def ikev_users():
 def bytes_to_GB(bytes):
     gb = bytes/(1024*1024*1024)
     gb = round(gb, 2)
-    return "{} GB".format(gb)
+    return gb
