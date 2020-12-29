@@ -50,14 +50,17 @@ def system_information():
 @core.route('/ikev_users', methods=['GET'])
 # @require_appkey
 def ikev_users():
-    stream = os.popen('strongswan leases | head -n 1')
-    res = stream.read()
-    arr = res.split(",")[1:]
-    data = {
-        'total':  int(arr[0][arr[0].find("/")-1]),
-        'online': int(arr[1].strip()[:1])
-    }
-    return jsonify(data)
+    try:
+        stream = os.popen('strongswan leases | head -n 1')
+        res = stream.read()
+        arr = res.split(",")[1:]
+        data = {
+            'total':  int(arr[0][arr[0].find("/")-1]),
+            'online': int(arr[1].strip()[:1])
+        }
+        return jsonify(data)
+    except:
+        return "error"
 
 
 def bytes_to_GB(bytes):
