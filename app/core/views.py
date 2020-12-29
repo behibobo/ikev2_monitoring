@@ -34,7 +34,7 @@ def system_information():
             'total': bytes_to_GB(virtual_memory.total),
             'available': bytes_to_GB(virtual_memory.available),
             'used': bytes_to_GB(virtual_memory.used),
-            'percentage': psutil.cpu_percent(),
+            'percentage': virtual_memory.percent(),
         },
         'cpu': {
             'usage': psutil.cpu_percent()
